@@ -1,15 +1,23 @@
-import { component$ } from "@builder.io/qwik";
+import { component$, useSignal } from "@builder.io/qwik";
 import type { DocumentHead } from "@builder.io/qwik-city";
+import { Pokemon } from "~/components/Pokemon";
 
 export default component$(() => {
+
+  const id = useSignal(1)
+  const isVisible = useSignal(false)
+
+
   return (
     <>
-      <h1>Hi 👋</h1>
-      <div>
-        Can't wait to see what you build with qwik!
-        <br />
-        Happy coding.
-      </div>
+     <p>Quien es este Pokemon</p>
+     <Pokemon id={id.value} isVisible={isVisible.value}/>
+     <div class="flex gap-2">
+      <button class="p-2 bg-gray-400 rounded" onClick$={() => id.value--}>Anterior</button>
+      <button class="p-2 bg-gray-400 rounded" onClick$={() => id.value++}>Siguiente</button>
+      <button class="p-2 bg-gray-400 rounded" onClick$={() => isVisible.value = !isVisible.value}>Esconder</button>
+      
+     </div>
     </>
   );
 });
